@@ -14,6 +14,15 @@ func TestAdminAPIList(t *testing.T) {
 	}
 }
 
+func TestAdminAPIGet(t *testing.T) {
+	http := TestAdminHTTPClient{fixtureFilename: "fixtures/admin.json", expectedURI: "/admins/1", t: t}
+	api := AdminAPI{httpClient: &http}
+	admin, _ := api.get("1")
+	if admin.ID != "1" {
+		t.Errorf("ID was %s, expected 1", admin.ID)
+	}
+}
+
 type TestAdminHTTPClient struct {
 	TestHTTPClient
 	t               *testing.T
